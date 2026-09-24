@@ -56,7 +56,7 @@ unirtos-cli new -r unirtos-vtls-demos -v 1.0.0
 ### 3. Enter the Project and Build
 
 ```bash
-cd unirtos-vtls-demos-1.0.0/example/vtls_noblock_demo
+cd unirtos-vtls-demos-1.0.0/vtls_noblock_demo
 unirtos-cli env-setup
 unirtos-cli build
 ```

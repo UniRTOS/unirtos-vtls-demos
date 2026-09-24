@@ -1,4 +1,4 @@
-# vtls_block_demo
+# vtls_noblock_demo2
 
 中文 | [English](README.md)
 
@@ -6,13 +6,13 @@
 
 ## 功能描述
 
-本 Demo 使用阻塞 socket IO 和阻塞 SSL 连接接口，验证完整 VTLS 建链与收发流程。
+本 Demo 采用非阻塞 socket + 非阻塞 SSL 接口（`qcm_ssl_connect_nonblocking`），验证完整 VTLS 非阻塞握手与数据收发流程。
 
-- 演示在 TLS 业务开始前完成 PDP 激活
-- 演示在指定 PDP 上通过 `getaddrinfowithcid` 进行 DNS 解析
-- 演示将 TCP socket 绑定到本地 PDP IP，并连接远端 HTTPS 服务
-- 演示通过 `qcm_ssl_connect` 执行 VTLS 阻塞握手
-- 演示在 TLS 通道中发送 HTTP GET 并持续接收响应数据
+- 演示在指定 CID 上完成 PDP 激活与 DNS 解析
+- 演示非阻塞 socket 初始化及 VTLS 回调式 IO 适配
+- 演示通过 `qcm_ssl_connect_nonblocking` + `done` 状态轮询推进握手
+- 演示通过 `ssl_ctx->state` 判断握手阶段并控制后续逻辑
+- 演示握手完成后发送 HTTP 请求并读取 TLS 响应数据
 
 ## 快速上手
 
@@ -56,7 +56,7 @@ unirtos-cli new -r unirtos-vtls-demos -v 1.0.0
 ### 3. 进入工程并编译
 
 ```bash
-cd unirtos-vtls-demos-1.0.0/example/vtls_block_demo
+cd unirtos-vtls-demos-1.0.0/vtls_noblock_demo2
 unirtos-cli env-setup
 unirtos-cli build
 ```

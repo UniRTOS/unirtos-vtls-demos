@@ -1,4 +1,4 @@
-# vtls_block_demo
+# vtls_noblock_demo2
 
 [中文](README.zh.md) | English
 
@@ -6,13 +6,13 @@ This repository is recommended to be used via the unirtos-cli demo workflow to e
 
 ## Feature Description
 
-This demo validates a full VTLS connection flow using blocking socket IO and the blocking SSL connect interface.
+This demo validates a fully non-blocking VTLS handshake/data flow, combining non-blocking socket IO with `qcm_ssl_connect_nonblocking`.
 
-- Demonstrates PDP activation before TLS traffic starts
-- Demonstrates DNS resolution through `getaddrinfowithcid` on the selected PDP context
-- Demonstrates creating and binding a TCP socket to local PDP IP, then connecting to remote HTTPS endpoint
-- Demonstrates VTLS blocking handshake with `qcm_ssl_connect`
-- Demonstrates sending HTTP GET request over TLS and continuously receiving server response
+- Demonstrates PDP activation and DNS resolution on a selected CID
+- Demonstrates non-blocking socket setup and callback-based IO abstraction for VTLS
+- Demonstrates incremental SSL handshake with `qcm_ssl_connect_nonblocking` and `done` state polling
+- Demonstrates handshake state transition checks via `ssl_ctx->state`
+- Demonstrates HTTP request send and TLS response read after non-blocking handshake completion
 
 ## Quick Start
 
@@ -56,7 +56,7 @@ unirtos-cli new -r unirtos-vtls-demos -v 1.0.0
 ### 3. Enter the Project and Build
 
 ```bash
-cd unirtos-vtls-demos-1.0.0/example/vtls_block_demo
+cd unirtos-vtls-demos-1.0.0/vtls_noblock_demo2
 unirtos-cli env-setup
 unirtos-cli build
 ```
